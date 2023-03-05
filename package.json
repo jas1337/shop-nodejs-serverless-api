@@ -1,0 +1,19 @@
+{
+  "name": "shop-nodejs-serverless-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jas1337/shop-nodejs-serverless-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jas1337/shop-nodejs-serverless-api/issues"
+  },
+  "homepage": "https://github.com/jas1337/shop-nodejs-serverless-api#readme"
+}
