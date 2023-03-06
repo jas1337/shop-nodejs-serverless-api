@@ -1,14 +1,16 @@
 'use strict';
 
 const {MOCK_PRODUCT_LIST} = require('../../mocks/products-list');
+const {headers} = require('../../utils/api_utils');
 
 module.exports.getProductById = async (event) => {
-  const {productId} = event;
+  const {productId} = event.pathParameters;
   const product = MOCK_PRODUCT_LIST.find(({id}) => id == productId);
 
   if (!product) {
     return {
       statusCode: 404,
+      headers,
       body: JSON.stringify(
           {
             message: 'Product not found',
@@ -21,15 +23,11 @@ module.exports.getProductById = async (event) => {
 
   return {
     statusCode: 200,
+    headers,
     body: JSON.stringify(
-        {
-          item: product,
-        },
+        {product},
         null,
         2
     ),
   };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };

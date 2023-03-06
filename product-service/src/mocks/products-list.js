@@ -7,4 +7,5 @@ module.exports.MOCK_PRODUCT_LIST = Array(10)
         title: `Product ${index}`,
         description: `Description of Product ${index}`,
         price: (Math.random() * 1000).toFixed(2),
+        count: 2,
     }));

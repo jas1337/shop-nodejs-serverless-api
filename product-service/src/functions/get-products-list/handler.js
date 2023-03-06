@@ -1,19 +1,16 @@
 'use strict';
 
 const {MOCK_PRODUCT_LIST} = require('../../mocks/products-list');
+const {headers} = require('../../utils/api_utils');
 
-module.exports.getProductsList = async (event) => {
+module.exports.getProductsList = async () => {
   return {
     statusCode: 200,
+    headers,
     body: JSON.stringify(
-        {
-          items: MOCK_PRODUCT_LIST,
-        },
+        MOCK_PRODUCT_LIST,
         null,
         2
     ),
   };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
