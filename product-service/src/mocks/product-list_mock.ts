@@ -1,6 +1,6 @@
 import { Product } from "../models/product_model";
 
-export const MOCK_PRODUCT_LIST = Array(10)
+export const MOCK_PRODUCT_LIST: Product[] = Array(10)
   .fill({})
   .map(
     (_product, index) =>

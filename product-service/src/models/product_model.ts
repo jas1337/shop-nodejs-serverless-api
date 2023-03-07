@@ -1,17 +1,10 @@
-export class Product {
-  /** @type {string} */
+import { IProduct } from "../types/product_interface";
+
+export class Product implements IProduct {
   id: string;
-
-  /** @type {string} */
   title: string;
-
-  /** @type {string} */
   description: string;
-
-  /** @type {string} */
   price: string;
-
-  /** @type {string} */
   count: string;
 
   constructor({ id, title, description, price, count }) {
