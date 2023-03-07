@@ -1,0 +1,26 @@
+{
+  "name": "shop-nodejs-serverless-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fix:prettier": "npx prettier --write .",
+    "fix:eslint": "eslint --fix",
+    "fix:all": "npm run fix:prettier && npm run fix:eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jas1337/shop-nodejs-serverless-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jas1337/shop-nodejs-serverless-api/issues"
+  },
+  "homepage": "https://github.com/jas1337/shop-nodejs-serverless-api#readme",
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "prettier": "^2.8.4"
+  }
+}
