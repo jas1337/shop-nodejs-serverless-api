@@ -27,10 +27,10 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<
     const { title, description, price, count } = event.body;
 
     const missingFields = Object.entries({
-      title: "asddsad",
-      description: "dasasdd",
-      price: "",
-      count: "",
+      title,
+      description,
+      price,
+      count,
     }).reduce((acc, [key, value]) => [...acc, ...(!value ? [key] : [])], []);
 
     if (missingFields.length) {

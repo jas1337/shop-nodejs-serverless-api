@@ -8,6 +8,7 @@ export default {
       http: {
         method: "post",
         path: "products",
+        cors: true,
         responseData: {
           200: {
             description: ERROR_MESSAGES.OK,
