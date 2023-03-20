@@ -4,6 +4,9 @@
   "description": "Product service API",
   "main": "serverless.ts",
   "scripts": {
+    "sls:deploy": "sls deploy",
+    "sls:offline": "process.env['NODE_ENV'] = 'dev' && sls offline start --httpPort 8081 --stage dev",
+    "sls:remove": "sls remove",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -22,6 +25,7 @@
     "serverless": "^3.0.0",
     "serverless-auto-swagger": "^2.12.0",
     "serverless-esbuild": "^1.23.3",
+    "serverless-offline": "^12.0.4",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.3"

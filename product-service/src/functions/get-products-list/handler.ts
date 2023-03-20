@@ -7,6 +7,7 @@ import { ERROR_MESSAGES } from "../../utils/api_utils";
 
 const getProductsList: ValidatedEventAPIGatewayProxyEvent<any> = async () => {
   try {
+    // console.log(MOCK_PRODUCT_LIST);
     return formatJSONResponse(200, MOCK_PRODUCT_LIST);
   } catch (e) {
     return formatJSONResponse(500, {
