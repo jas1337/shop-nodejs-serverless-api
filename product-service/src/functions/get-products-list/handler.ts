@@ -2,14 +2,16 @@ import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
 import { formatJSONResponse } from "@libs/api-gateway";
 import { middyfy } from "@libs/lambda";
 
-import { MOCK_PRODUCT_LIST } from "../../mocks/product-list_mock";
 import { ERROR_MESSAGES } from "../../utils/api_utils";
+import { ProductsService } from "../../services/products_service";
 
 const getProductsList: ValidatedEventAPIGatewayProxyEvent<any> = async () => {
   try {
-    // console.log(MOCK_PRODUCT_LIST);
-    return formatJSONResponse(200, MOCK_PRODUCT_LIST);
+    const products = await ProductsService.getProductsList();
+
+    return formatJSONResponse(200, products);
   } catch (e) {
+    console.log(e);
     return formatJSONResponse(500, {
       message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
     });

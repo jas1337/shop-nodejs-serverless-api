@@ -1,3 +1,7 @@
 import { randomUUID } from "crypto";
 
-export const generateUuid = () => randomUUID();
+export class StringUtils {
+  static generateUuid(): string {
+    return randomUUID();
+  }
+}

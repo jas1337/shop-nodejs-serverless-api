@@ -1,4 +1,4 @@
 export interface IStock {
-  productId: string;
+  product_id: string;
   count: number;
 }

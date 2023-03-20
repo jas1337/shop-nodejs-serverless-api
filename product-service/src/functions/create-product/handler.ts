@@ -27,7 +27,6 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<
         (property) => property === undefined
       )
     ) {
-      console.log('400');
       return formatJSONResponse(400, ERROR_MESSAGES.BAD_REQUEST);
     }
 
@@ -37,7 +36,7 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<
       price,
       count,
     });
-    console.log(product);
+
     return formatJSONResponse(200, product);
   } catch (e) {
     return formatJSONResponse(500, {

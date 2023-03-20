@@ -5,7 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "sls:deploy": "sls deploy",
-    "sls:offline": "process.env['NODE_ENV'] = 'dev' && sls offline start --httpPort 8081 --stage dev",
+    "sls:offline": "sls offline start --httpPort 8081 --stage dev",
     "sls:remove": "sls remove",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

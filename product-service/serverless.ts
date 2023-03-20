@@ -41,21 +41,15 @@ const serverlessConfiguration: AWS = {
     getProductById,
   },
   package: { individually: true },
-  // uncomment to create tables on AWS (one-time action)
   resources: {
     Resources: {
       productsTable: {
         Type: "AWS::DynamoDB::Table",
+        DeletionPolicy: "Delete",
         Properties: {
           TableName: "products",
-          AttributeDefinitions: [
-            { AttributeName: "id", AttributeType: "S" },
-            { AttributeName: "title", AttributeType: "S" },
-          ],
-          KeySchema: [
-            { AttributeName: "id", KeyType: "HASH" },
-            { AttributeName: "title", KeyType: "RANGE" },
-          ],
+          AttributeDefinitions: [{ AttributeName: "id", AttributeType: "S" }],
+          KeySchema: [{ AttributeName: "id", KeyType: "HASH" }],
           ProvisionedThroughput: {
             ReadCapacityUnits: 1,
             WriteCapacityUnits: 1,
@@ -65,6 +59,7 @@ const serverlessConfiguration: AWS = {
       },
       stocksTable: {
         Type: "AWS::DynamoDB::Table",
+        DeletionPolicy: "Delete",
         Properties: {
           TableName: "stocks",
           AttributeDefinitions: [
