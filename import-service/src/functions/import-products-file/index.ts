@@ -8,14 +8,20 @@ export default {
       http: {
         method: "get",
         path: "import",
-        cors: true,
+        request: {
+          parameters: {
+            paths: {
+              name: true,
+            },
+          },
+        },
         responseData: {
           200: {
             description: ERROR_MESSAGES.OK,
-            // bodyType: "createProductResponse",
+            bodyType: "importProductsFileResponse",
           },
           400: {
-            description: ERROR_MESSAGES.BAD_REQUEST,
+            description: `${ERROR_MESSAGES.REQUIRED_PARAMETER_MISSING}: name`,
           },
           500: {
             description: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,

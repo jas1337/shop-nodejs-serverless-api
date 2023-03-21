@@ -1,6 +1,6 @@
 import type { AWS } from "@serverless/typescript";
 
-import { importProductsFile } from "@functions/index";
+import { importFileParser, importProductsFile } from "@functions/index";
 
 const serverlessConfiguration: AWS = {
   service: "import-service",
@@ -23,12 +23,45 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
       ENV_NAME: "${sls:stage}",
+      BUCKET_NAME: "${self:custom.s3BucketName}",
     },
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        Action: "s3:ListBucket",
+        Resource: "arn:aws:s3:::${self:custom.s3BucketName}",
+      },
+      {
+        Effect: "Allow",
+        Action: "s3:*",
+        Resource: "arn:aws:s3:::${self:custom.s3BucketName}/*",
+      },
+    ],
   },
   // import the function via paths
-  functions: { importProductsFile },
+  functions: { importProductsFile, importFileParser },
   package: { individually: true },
+  resources: {
+    Resources: {
+      WebAppS3Bucket: {
+        Type: "AWS::S3::Bucket",
+        Properties: {
+          BucketName: "${self:custom.s3BucketName}",
+          CorsConfiguration: {
+            CorsRules: [
+              {
+                AllowedHeaders: ["*"],
+                AllowedMethods: ["PUT"],
+                AllowedOrigins: ["*"],
+              },
+            ],
+          },
+        },
+      },
+    },
+  },
   custom: {
+    s3BucketName: "jas1337-import-service-bucket",
     esbuild: {
       bundle: true,
       minify: false,

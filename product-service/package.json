@@ -1,11 +1,11 @@
 {
   "name": "product-service",
   "version": "1.0.0",
-  "description": "Product service API",
+  "description": "Product Service API",
   "main": "serverless.ts",
   "scripts": {
     "sls:deploy": "sls deploy --stage prod && rm -rf .esbuild",
-    "sls:offline": "sls offline start --httpPort 4000 --stage dev",
+    "sls:offline": "sls offline start --httpPort 4000 --lambdaPort 3000 --stage dev",
     "sls:remove": "sls remove",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
