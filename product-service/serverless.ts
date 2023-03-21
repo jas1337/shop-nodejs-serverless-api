@@ -17,14 +17,15 @@ const serverlessConfiguration: AWS = {
     name: "aws",
     runtime: "nodejs14.x",
     region: "eu-west-1",
-    stage: "dev",
+    stage: '${opt:stage, "dev"}',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-      NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+      NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000 ",
+      ENV_NAME: "${sls:stage}",
     },
     iamRoleStatements: [
       {
@@ -89,7 +90,7 @@ const serverlessConfiguration: AWS = {
     autoswagger: {
       title: "Product service API",
       apiType: "http",
-      basePath: "/dev",
+      basePath: "/${sls:stage}",
       typefiles: [
         "./src/types/api-types.d.ts",
         "./src/types/product-with-count_interface.ts",

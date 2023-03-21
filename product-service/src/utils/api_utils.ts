@@ -6,7 +6,9 @@ export const ERROR_MESSAGES = {
 };
 
 export const headers = {
-  // "Access-Control-Allow-Origin": "*", // local env
-  "Access-Control-Allow-Origin": "https://d25fwvg9qrlnyv.cloudfront.net",
+  "Access-Control-Allow-Origin":
+    process.env["ENV_NAME"] === "prod"
+      ? "https://d25fwvg9qrlnyv.cloudfront.net"
+      : "*",
   "Access-Control-Allow-Credentials": true,
 };

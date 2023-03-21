@@ -1,5 +1,5 @@
 import { IProduct } from "../types/product_interface";
-import { StringUtils } from "../utils/string_utils";
+import { StringUtils } from "../../../shared/utils/string_utils";
 import { IStock } from "../types/stock_interface";
 import { IProductWithCount } from "../types/product-with-count_interface";
 import { DbUtils } from "../utils/db_utils";
