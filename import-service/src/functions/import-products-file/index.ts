@@ -10,7 +10,7 @@ export default {
         path: "import",
         request: {
           parameters: {
-            paths: {
+            querystrings: {
               name: true,
             },
           },
