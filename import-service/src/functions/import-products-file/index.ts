@@ -7,11 +7,15 @@ export default {
     {
       http: {
         method: "get",
-        path: "products",
+        path: "import",
+        cors: true,
         responseData: {
           200: {
             description: ERROR_MESSAGES.OK,
-            bodyType: "getProductListResponse",
+            // bodyType: "createProductResponse",
+          },
+          400: {
+            description: ERROR_MESSAGES.BAD_REQUEST,
           },
           500: {
             description: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
