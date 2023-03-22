@@ -1,11 +1,11 @@
 {
-  "name": "product-service",
+  "name": "import-service",
   "version": "1.0.0",
-  "description": "Product Service API",
+  "description": "Import Service API",
   "main": "serverless.ts",
   "scripts": {
     "sls:deploy": "rm -rf .esbuild && sls deploy --stage prod",
-    "sls:offline": "sls offline start --httpPort 4000 --lambdaPort 3000 --stage dev",
+    "sls:offline": "sls offline start --httpPort 4001 --lambdaPort 3001 --stage dev",
     "sls:remove": "sls remove",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@middy/core": "^3.4.0",
-    "@middy/http-json-body-parser": "^3.4.0"
+    "@middy/http-json-body-parser": "^3.4.0",
+    "csv-parser": "^3.0.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",

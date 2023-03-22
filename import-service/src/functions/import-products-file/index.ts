@@ -7,11 +7,21 @@ export default {
     {
       http: {
         method: "get",
-        path: "products",
+        path: "import",
+        request: {
+          parameters: {
+            querystrings: {
+              name: true,
+            },
+          },
+        },
         responseData: {
           200: {
             description: ERROR_MESSAGES.OK,
-            bodyType: "getProductListResponse",
+            bodyType: "importProductsFileResponse",
+          },
+          400: {
+            description: `${ERROR_MESSAGES.REQUIRED_PARAMETER_MISSING}: name`,
           },
           500: {
             description: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,

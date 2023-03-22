@@ -1,5 +1,5 @@
 import { handlerPath } from "@libs/handler-resolver";
-import { ERROR_MESSAGES } from "../../utils/api_utils";
+import { ERROR_MESSAGES } from "../../../../shared/constants";
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
