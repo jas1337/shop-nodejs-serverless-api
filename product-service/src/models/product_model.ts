@@ -4,14 +4,12 @@ export class Product implements IProduct {
   id: string;
   title: string;
   description: string;
-  price: string;
-  count: string;
+  price: number;
 
-  constructor({ id, title, description, price, count }) {
+  constructor({ id = "", title, description, price }) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.price = price;
-    this.count = count;
   }
 }
