@@ -1,9 +1,11 @@
-import { S3 } from "aws-sdk";
+import { S3, SQS } from "aws-sdk";
 import csv from "csv-parser";
 import { logger } from "../../../shared/utils/logger_utils";
+import { ValidationUtils } from "../../../shared/utils/validation_utils";
 
 export class ImportService {
   static s3 = new S3();
+  static sqs = new SQS();
 
   static async getSingedUrl(fileName: string) {
     return await this.s3.getSignedUrlPromise("putObject", {
@@ -25,11 +27,30 @@ export class ImportService {
           Key: sourcePath,
         })
         .createReadStream();
+      const entries = [];
 
       s3Stream
-        .pipe(csv())
-        .on("data", (data) => {
-          logger.info(`Parsing data ${data}`);
+        .pipe(
+          csv({
+            separator: ";",
+            headers: ["id", "title", "description", "price", "count"],
+            skipLines: 1,
+          })
+        )
+        .on("data", async (data) => {
+          const missingFields =
+            ValidationUtils.validateRequiredProductFields(data);
+
+          if (missingFields.length) {
+            logger.error(
+              `Missing values for fields: ${missingFields.join(",")}`
+            );
+
+            return;
+          }
+          const { title, description, price, count } = data;
+
+          entries.push({ title, description, price, count });
         })
         .on("error", (e) => {
           logger.error(`Error on parsing csv file "${sourcePath}"`);
@@ -54,6 +75,24 @@ export class ImportService {
               })
               .promise();
             logger.info(`Removed "${sourcePath}"`);
+
+            if (entries.length) {
+              await this.sqs
+                .sendMessageBatch({
+                  QueueUrl: process.env["CATALOG_ITEMS_QUEUE_URL"],
+                  Entries: entries.map((entry, index) => ({
+                    Id: `${index}`,
+                    MessageBody: JSON.stringify(entry),
+                  })),
+                })
+                .promise();
+              logger.info(
+                `Sending batch SQS message with ${entries.length} ${
+                  entries.length > 1 ? "entries" : "entry"
+                }`
+              );
+            }
+
             return resolve(data);
           } catch (e) {
             logger.error(e);

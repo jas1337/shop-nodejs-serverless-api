@@ -5,6 +5,7 @@ import { middyfy } from "@libs/lambda";
 import { ERROR_MESSAGES } from "../../../../shared/constants";
 import { ProductsService } from "../../services/products_service";
 import { logger, withRequest } from "../../../../shared/utils/logger_utils";
+import { ValidationUtils } from "../../../../shared/utils/validation_utils";
 
 type createProductSchema = {
   type: "object";
@@ -26,12 +27,12 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<
   try {
     const { title, description, price, count } = event.body;
 
-    const missingFields = Object.entries({
+    const missingFields = ValidationUtils.validateRequiredProductFields({
       title,
       description,
       price,
       count,
-    }).reduce((acc, [key, value]) => [...acc, ...(!value ? [key] : [])], []);
+    });
 
     if (missingFields.length) {
       logger.error(`Missing values for fields: ${missingFields.join(",")}`);

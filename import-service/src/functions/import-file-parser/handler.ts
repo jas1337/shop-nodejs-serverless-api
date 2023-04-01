@@ -1,7 +1,7 @@
 import { S3Event, S3Handler } from "aws-lambda";
 
 import { logger, withRequest } from "../../../../shared/utils/logger_utils";
-import { ImportService } from "../../services/import-service";
+import { ImportService } from "../../services/import_service";
 
 const importFileParser: S3Handler = async (event: S3Event, context) => {
   withRequest(event, context);
