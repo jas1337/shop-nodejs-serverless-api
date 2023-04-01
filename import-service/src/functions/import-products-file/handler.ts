@@ -4,7 +4,7 @@ import { middyfy } from "@libs/lambda";
 
 import { logger, withRequest } from "../../../../shared/utils/logger_utils";
 import { ERROR_MESSAGES } from "../../../../shared/constants";
-import { ImportService } from "../../services/import-service";
+import { ImportService } from "../../services/import_service";
 
 const importProductsFile: ValidatedEventAPIGatewayProxyEvent<never> = async (
   event,

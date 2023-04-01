@@ -1,6 +1,10 @@
 import type { AWS } from "@serverless/typescript";
 
 import { importFileParser, importProductsFile } from "@functions/index";
+import {
+  CATALOG_ITEMS_QUEUE_ARN_EXPORT_NAME,
+  CATALOG_ITEMS_QUEUE_URL_EXPORT_NAME,
+} from "../shared/constants";
 
 const serverlessConfiguration: AWS = {
   service: "import-service",
@@ -24,6 +28,9 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
       ENV_NAME: "${sls:stage}",
       BUCKET_NAME: "${self:custom.s3BucketName}",
+      CATALOG_ITEMS_QUEUE_URL: {
+        "Fn::ImportValue": CATALOG_ITEMS_QUEUE_URL_EXPORT_NAME,
+      },
     },
     iamRoleStatements: [
       {
@@ -35,6 +42,13 @@ const serverlessConfiguration: AWS = {
         Effect: "Allow",
         Action: "s3:*",
         Resource: "arn:aws:s3:::${self:custom.s3BucketName}/*",
+      },
+      {
+        Effect: "Allow",
+        Action: "sqs:*",
+        Resource: {
+          "Fn::ImportValue": CATALOG_ITEMS_QUEUE_ARN_EXPORT_NAME,
+        },
       },
     ],
   },
