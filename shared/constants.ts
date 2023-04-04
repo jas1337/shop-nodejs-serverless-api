@@ -9,4 +9,5 @@ export const ERROR_MESSAGES = {
 export const CATALOG_ITEMS_QUEUE_URL_EXPORT_NAME = "catalog-items-queue-url";
 export const CATALOG_ITEMS_QUEUE_ARN_EXPORT_NAME = "catalog-items-queue-arn";
 
-export const CREATE_PRODUCT_TOPIC_ARN_EXPORT_NAME = "catalog-items-queue-arn";
+export const BASIC_AUTHORIZER_LAMBDA_ARN_EXPORT_NAME =
+  "basic-authorizer-lambda-arn";
