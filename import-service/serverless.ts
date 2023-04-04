@@ -57,6 +57,35 @@ const serverlessConfiguration: AWS = {
   package: { individually: true },
   resources: {
     Resources: {
+      GatewayResponseUnauthorized: {
+        Type: "AWS::ApiGateway::GatewayResponse",
+        Properties: {
+          ResponseParameters: {
+            "gatewayresponse.header.WWW-Authenticate": "'Basic'",
+            "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+            "gatewayresponse.header.Access-Control-Allow-Headers": "'*'",
+          },
+          RestApiId: {
+            Ref: "ApiGatewayRestApi",
+          },
+          ResponseType: "UNAUTHORIZED",
+          StatusCode: "401",
+        },
+      },
+      GatewayResponseForbidden: {
+        Type: "AWS::ApiGateway::GatewayResponse",
+        Properties: {
+          ResponseParameters: {
+            "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+            "gatewayresponse.header.Access-Control-Allow-Headers": "'*'",
+          },
+          RestApiId: {
+            Ref: "ApiGatewayRestApi",
+          },
+          ResponseType: "ACCESS_DENIED",
+          StatusCode: "403",
+        },
+      },
       WebAppS3Bucket: {
         Type: "AWS::S3::Bucket",
         Properties: {

@@ -1,5 +1,8 @@
 import { handlerPath } from "@libs/handler-resolver";
-import { ERROR_MESSAGES } from "../../../../shared/constants";
+import {
+  BASIC_AUTHORIZER_LAMBDA_ARN_EXPORT_NAME,
+  ERROR_MESSAGES,
+} from "../../../../shared/constants";
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -8,12 +11,22 @@ export default {
       http: {
         method: "get",
         path: "import",
+        cors: true,
         request: {
           parameters: {
             querystrings: {
               name: true,
             },
           },
+        },
+        authorizer: {
+          name: "basicAuthorizer",
+          arn: {
+            "Fn::ImportValue": BASIC_AUTHORIZER_LAMBDA_ARN_EXPORT_NAME,
+          },
+          resultTtlInSeconds: 0,
+          identitySource: "method.request.header.Authorization",
+          type: "token",
         },
         responseData: {
           200: {
