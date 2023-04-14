@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/services/users.service';
-import { User } from '../users/models';
-import { contentSecurityPolicy } from 'helmet';
+import { Injectable } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { UsersService } from "../users/services/users.service";
+import { User } from "../users/models";
+import { contentSecurityPolicy } from "helmet";
 
 @Injectable()
 export class AuthService {
@@ -18,7 +18,7 @@ export class AuthService {
       return user;
     }
 
-    return this.usersService.createOne({ name, password })
+    return this.usersService.createOne({ name, password });
   }
 
   login(user: User, type) {
@@ -26,8 +26,8 @@ export class AuthService {
       jwt: this.loginJWT,
       basic: this.loginBasic,
       default: this.loginJWT,
-    }
-    const login = LOGIN_MAP[ type ]
+    };
+    const login = LOGIN_MAP[type];
 
     return login ? login(user) : LOGIN_MAP.default(user);
   }
@@ -36,7 +36,7 @@ export class AuthService {
     const payload = { username: user.name, sub: user.id };
 
     return {
-      token_type: 'Bearer',
+      token_type: "Bearer",
       access_token: this.jwtService.sign(payload),
     };
   }
@@ -47,17 +47,14 @@ export class AuthService {
 
     function encodeUserToken(user) {
       const { id, name, password } = user;
-      const buf = Buffer.from([name, password].join(':'), 'utf8');
+      const buf = Buffer.from([name, password].join(":"), "utf8");
 
-      return buf.toString('base64');
+      return buf.toString("base64");
     }
 
     return {
-      token_type: 'Basic',
+      token_type: "Basic",
       access_token: encodeUserToken(user),
     };
   }
-
-
-
 }

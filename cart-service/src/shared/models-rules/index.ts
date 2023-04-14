@@ -1,4 +1,4 @@
-import { AppRequest } from '../models';
+import { AppRequest } from "../models";
 
 /**
  * @param {AppRequest} request
