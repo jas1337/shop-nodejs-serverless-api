@@ -4,6 +4,7 @@ export const ERROR_MESSAGES = {
   INTERNAL_SERVER_ERROR: "Internal server error",
   BAD_REQUEST: "Bad request",
   REQUIRED_PARAMETER_MISSING: "Required URL parameter is missing",
+  UNAUTHORIZED: "Bad credentials",
 };
 
 export const CATALOG_ITEMS_QUEUE_URL_EXPORT_NAME = "catalog-items-queue-url";

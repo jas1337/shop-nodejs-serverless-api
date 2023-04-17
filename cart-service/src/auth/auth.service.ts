@@ -11,7 +11,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  validateUser(name: string, password: string): any {
+  validateUser(name: string, password: string): Promise<User> {
     const user = this.usersService.findOne(name);
 
     if (user) {
@@ -46,8 +46,8 @@ export class AuthService {
     console.log(user);
 
     function encodeUserToken(user) {
-      const { id, name, password } = user;
-      const buf = Buffer.from([name, password].join(":"), "utf8");
+      const { username, password } = user;
+      const buf = Buffer.from([username, password].join(":"), "utf8");
 
       return buf.toString("base64");
     }
@@ -55,6 +55,10 @@ export class AuthService {
     return {
       token_type: "Basic",
       access_token: encodeUserToken(user),
+      user_data: {
+        id: user.id,
+        username: user.name,
+      },
     };
   }
 }
