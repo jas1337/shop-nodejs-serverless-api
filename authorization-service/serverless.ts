@@ -1,5 +1,5 @@
 import type { AWS } from "@serverless/typescript";
-import { basicAuthorizer, getAuthorizationToken } from "@functions/index";
+import { basicAuthorizer } from "@functions/index";
 import { BASIC_AUTHORIZER_LAMBDA_ARN_EXPORT_NAME } from "../shared/constants";
 import * as dotenv from "dotenv";
 
@@ -31,7 +31,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { basicAuthorizer, getAuthorizationToken },
+  functions: { basicAuthorizer },
   package: { individually: true },
   resources: {
     Outputs: {
